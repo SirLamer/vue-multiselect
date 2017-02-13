@@ -17,7 +17,6 @@
           class="multiselect__tag">
             <span v-text="getOptionLabel(option)"></span>
             <i
-              v-show="allowEmpty || internalValue.length > 1"
               aria-hidden="true"
               tabindex="1"
               @keydown.enter.prevent="removeElement(option)"
