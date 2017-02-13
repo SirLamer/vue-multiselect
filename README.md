@@ -1,4 +1,7 @@
-# vue-multiselect ![Build Status](https://circleci.com/gh/monterail/vue-multiselect/tree/master.svg?style=shield&circle-token=5c931ff28fd12587610f835472becdd514d09cef)![No Dependencies](https://img.shields.io/gemnasium/monterail/vue-multiselect.svg?style=flat)![Current Release](https://img.shields.io/github/release/monterail/vue-multiselect.svg?style=flat)![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+# vue-multiselect 
+
+![Build Status](https://circleci.com/gh/monterail/vue-multiselect/tree/master.svg?style=shield&circle-token=5c931ff28fd12587610f835472becdd514d09cef)[![Codecov branch](https://img.shields.io/codecov/c/github/monterail/vue-multiselect/2.0.svg)](https://codecov.io/gh/monterail/vue-multiselect/branch/2.0)[![npm](https://img.shields.io/npm/dm/vue-multiselect.svg)](https://www.npmjs.com/package/vue-multiselect)[![npm](https://img.shields.io/npm/dt/vue-multiselect.svg)](https://www.npmjs.com/package/vue-multiselect)![No Dependencies](https://img.shields.io/gemnasium/monterail/vue-multiselect.svg?style=flat)![Current Release](https://img.shields.io/github/release/monterail/vue-multiselect.svg?style=flat)![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+
 The most complete *selecting* solution for Vue.js, without jQuery.
 
 #### Current version: 1.1.4
@@ -68,6 +71,19 @@ export default {
 }
 ```
 
+Alternatively:
+
+```html
+<script src="https://cdn.jsdelivr.net/vue.multiselect/1.1.4/vue-multiselect.min.js"></script>
+```
+
+VueMultiselect will be available on the window object. As it contains a default export you have to access it through `VueMultiselect.default`.
+
+```javascript
+// register the plugin globally
+Vue.component('Multiselect', VueMultiselect.default)
+```
+
 You can now author custom components based on *vue-multiselect* mixins.
 
 ``` javascript
@@ -112,7 +128,6 @@ multiselect(
   :options="source",
   :selected="value",
   :close-on-select="true",
-  :clear-on-select="false",
   @update="updateValue",
   placeholder="Select one",
   label="name",
@@ -238,8 +253,6 @@ methods: {
 props: {
   /**
    * Array of available options: Objects, Strings or Integers.
-   * If array of objects, visible label will default to option.label.
-   * If `label` prop is passed, label will equal option['label']
    * @type {Array}
    */
   options: {
@@ -261,8 +274,7 @@ props: {
    */
   selected: {},
   /**
-   * Key to compare objects
-   * @default 'id'
+   * Key to compare objects.
    * @type {String}
    */
   key: {
@@ -271,7 +283,6 @@ props: {
   },
   /**
    * Label to look for in option Object
-   * @default 'label'
    * @type {String}
    */
   label: {
