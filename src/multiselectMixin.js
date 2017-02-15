@@ -1,5 +1,5 @@
 import deepClone from './utils'
-const removeDiacritics = require('diacritics').remove
+import {remove as removeDiacritics} from 'diacritics'
 
 function includes (str, query) {
   if (!str) return false
