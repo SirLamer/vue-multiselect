@@ -355,7 +355,7 @@ module.exports = {
       )(options)
     },
     updateSearch (query) {
-      this.search = query.trim().toString()
+      this.search = query
     },
     /**
      * Finds out if the given query is already present
