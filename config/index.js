@@ -5,6 +5,7 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     port: 8080,
+    autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {},
@@ -17,8 +18,13 @@ module.exports = {
   },
   bundle: {
     env: require('./prod.env'),
-    assetsRoot: path.resolve(__dirname, '../lib'),
-    assetsPublicPath: '/'
+    assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsPublicPath: '/',
+    assetsSubDirectory: '/',
+    productionSourceMap: true,
+    productionGzip: false,
+    productionGzipExtensions: ['js', 'css'],
+    bundleAnalyzerReport: process.env.npm_config_report
   },
   docs: {
     env: require('./prod.env'),
@@ -26,6 +32,9 @@ module.exports = {
     assetsRoot: path.resolve(__dirname, '../gh-pages'),
     assetsPublicPath: '',
     assetsSubDirectory: 'static',
-    productionSourceMap: true
-  },
+    productionSourceMap: true,
+    productionGzip: false,
+    productionGzipExtensions: ['js', 'css'],
+    bundleAnalyzerReport: process.env.npm_config_report
+  }
 }

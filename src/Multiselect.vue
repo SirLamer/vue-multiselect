@@ -9,11 +9,13 @@
     @keydown.enter.tab.stop.self="addPointerElement($event)"
     @keyup.esc="deactivate()"
     class="multiselect">
-      <div @mousedown.prevent="toggle()" class="multiselect__select"></div>
+      <slot name="carret">
+        <div @mousedown.prevent="toggle()" class="multiselect__select"></div>
+      </slot>
       <div ref="tags" class="multiselect__tags">
         <span
           v-for="option of visibleValue"
-          onmousedown="event.preventDefault()"
+          @mousedown.prevent
           class="multiselect__tag">
             <span v-text="getOptionLabel(option)"></span>
             <i
@@ -28,7 +30,7 @@
           <strong v-text="limitText(internalValue.length - limit)"></strong>
         </template>
         <transition name="multiselect__loading">
-          <div v-show="loading" class="multiselect__spinner"></div>
+          <slot name="loading"><div v-show="loading" class="multiselect__spinner"></div></slot>
         </transition>
         <input
           ref="search"
@@ -36,7 +38,7 @@
           autocomplete="off"
           :placeholder="placeholder"
           v-if="searchable"
-          :value="search"
+          :value="isOpen ? search : currentOptionLabel"
           :disabled="disabled"
           @input="updateSearch($event.target.value)"
           @focus.prevent="activate()"
@@ -44,13 +46,14 @@
           @keyup.esc="deactivate()"
           @keydown.down.prevent="pointerForward()"
           @keydown.up.prevent="pointerBackward()"
-          @keydown.enter.tab.stop.self.prevent="addPointerElement($event)"
+          @keydown.enter.prevent
+          @keydown.enter.tab.stop.self="addPointerElement($event)"
           @keydown.delete="removeLastElement()"
           class="multiselect__input"/>
         <span
           v-if="!searchable"
           class="multiselect__single"
-          v-text="currentOptionLabel || placeholder">
+          v-text="currentOptionLabel">
         </span>
       </div>
       <transition name="multiselect">
@@ -89,7 +92,7 @@
               </span>
             </li>
           </template>
-          <li v-show="filteredOptions.length === 0 && search">
+          <li v-show="filteredOptions.length === 0 && search && !loading">
             <span class="multiselect__option">
               <slot name="noResult">No elements found. Consider changing the search query.</slot>
             </span>
