@@ -331,14 +331,31 @@ export default {
       this.$emit('search-change', this.search, this.id)
     },
     'value' (value) {
-      this.internalValue = deepClone(Array.isArray(value) ? value : [value])
+      this.internalValue = this.getInternalValue(value)
     }
   },
   methods: {
+    /**
+     * Converts the internal value to the external value
+     * @returns {Object||Array||String||Integer} returns the external value
+     */
     getValue () {
       return this.multiple
         ? deepClone(this.internalValue)
-        : deepClone(this.internalValue[0])
+        : this.internalValue.length === 0
+          ? null
+          : deepClone(this.internalValue[0])
+    },
+    /**
+     * Converts the external value to the internal value
+     * @returns {Array} returns the internal value
+     */
+    getInternalValue (value) {
+      return value === null || value === undefined
+        ? []
+        : this.multiple
+          ? deepClone(value)
+          : deepClone([value])
     },
     /**
      * Filters and then flattens the options list
@@ -448,9 +465,9 @@ export default {
 
         /* istanbul ignore else */
         if (this.clearOnSelect) this.search = ''
-        /* istanbul ignore else */
-        if (this.closeOnSelect) this.deactivate()
       }
+      /* istanbul ignore else */
+      if (this.closeOnSelect) this.deactivate()
     },
     /**
      * Removes the given option from the selected options.

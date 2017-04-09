@@ -27,11 +27,11 @@ Probably the most complete *selecting* solution for Vue.js 2.0, without jQuery.
 
 ## Install & basic usage
 
-``` bash
-npm install vue-multiselect
+```bash
+npm install vue-multiselect@next
 ```
 
-``` html
+```vue
 <template>
   <div>
     <multiselect
@@ -40,39 +40,26 @@ npm install vue-multiselect
     </multiselect>
   </div>
 </template>
-```
 
-``` javascript
-import Multiselect from 'vue-multiselect'
-export default {
-  components: { Multiselect },
-  data () {
-    return {
-      selected: null,
-      options: ['list', 'of', 'options']
+<script>
+  import Multiselect from 'vue-multiselect'
+  export default {
+    components: { Multiselect },
+    data () {
+      return {
+        selected: null,
+        options: ['list', 'of', 'options']
+      }
     }
   }
-}
+</script>
+
+<style src="vue-multiselect/dist/vue-multiselect.min.css"></style>
 ```
 
-You can now author custom components based on *vue-multiselect* mixins.
+## JSFiddle
 
-``` javascript
-import { multiselectMixin, pointerMixin } from 'vue-multiselect'
-export default {
-  mixins: [multiselectMixin, pointerMixin],
-  data () {
-    return {
-      selected: null,
-      options: ['list', 'of', 'options']
-    }
-  }
-}
-```
-
-## Roadmap:
-
-* Grouping
+[Example JSFiddle](https://jsfiddle.net/shentao/c4L3gs91/) – Use this for issue reproduction.
 
 ## Examples
 in jade-lang/pug-lang
@@ -449,7 +436,7 @@ props: {
 # serve with hot reload at localhost:8080
 npm run dev
 
-# lib distribution build with minification
+# distribution build with minification
 npm run bundle
 
 # build the docs into gh-pages
